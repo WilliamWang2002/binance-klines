@@ -20,7 +20,7 @@ function App() {
     function onClick() {
         let url = "";
         if (rollingUpAmount === "") {
-            url = `http://localhost:8888/getKlineData?symbol=${symbol}&startingTime=${startTime}&endingTime=${endTime}&runName=${runName}`;
+            url = `http://localhost:8888/getKlineData?symbol=${symbol}&startingTime=${startTime}&endingTime=${endTime}&runName=${runName}&rollingUp=`;
         } else {
             url = `http://localhost:8888/getKlineData?symbol=${symbol}&startingTime=${startTime}&endingTime=${endTime}&runName=${runName}&rollingUp=${rollingUpAmount}`;
         }
@@ -36,7 +36,7 @@ function App() {
                 if (error.response.status === 409) {
                     alert("Run Name already exists in database");
                 } else {
-                    alert(error.response.data.message);
+                    alert(error.response.message);
                 }
             });
     }
