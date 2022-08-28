@@ -13,20 +13,19 @@ function App() {
     const [endTime, setEndTime] = React.useState("");
     const [symbol, setSymbol] = React.useState("");
     const [runName, setRunName] = React.useState("");
-    const [rollingUpAmount, setAmount] = React.useState("");
-    console.log(rollingUpAmount);
+    const [frequency, setFrequency] = React.useState("");
     const axios = require("axios");
 
     function onClick() {
         let url = "";
-        if (rollingUpAmount === "") {
-            url = `http://localhost:8888/getKlineData?symbol=${symbol}&startingTime=${startTime}&endingTime=${endTime}&runName=${runName}&rollingUp=`;
+        if (frequency === "") {
+            url = `http://localhost:8888/loadKlineData?symbol=${symbol}&startingTime=${startTime}&endingTime=${endTime}&runName=${runName}&frequency=`;
         } else {
-            url = `http://localhost:8888/getKlineData?symbol=${symbol}&startingTime=${startTime}&endingTime=${endTime}&runName=${runName}&rollingUp=${rollingUpAmount}`;
+            url = `http://localhost:8888/loadKlineData?symbol=${symbol}&startingTime=${startTime}&endingTime=${endTime}&runName=${runName}&frequency=${frequency}`;
         }
         console.log(url);
         axios
-            .get(url)
+            .post(url)
             .then(function (response) {
                 console.log(response);
                 alert("All data stored to the database");
@@ -99,19 +98,19 @@ function App() {
                         variant="standard"
                         sx={{ m: 1, minWidth: 200 }}>
                         <InputLabel id="demo-simple-select-standard-label">
-                            Rolling Up Amount
+                            Frequency
                         </InputLabel>
                         <Select
                             labelId="demo-simple-select-standard-label"
                             id="demo-simple-select-standard"
-                            value={rollingUpAmount}
-                            onChange={(e) => setAmount(e.target.value)}
+                            value={frequency}
+                            onChange={(e) => setFrequency(e.target.value)}
                             label="Rolling Up Amount">
                             <MenuItem value="">
                                 <em>None</em>
                             </MenuItem>
-                            <MenuItem value={"d"}>Day</MenuItem>
-                            <MenuItem value={"m"}>Month</MenuItem>
+                            <MenuItem value={"ONE_DAY"}>Day</MenuItem>
+                            <MenuItem value={"ONE_HOUR"}>Hour</MenuItem>
                         </Select>
                     </FormControl>
 
