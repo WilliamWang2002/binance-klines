@@ -20,6 +20,7 @@ import org.springframework.web.client.RestTemplate;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 //TODO use mapper
@@ -98,6 +99,12 @@ public class KlineDaoImpl implements KlineDAO {
         list.stream().
                 forEach(kline -> klineRepository.save(kline));
 
+    }
+
+    public List<Kline> getData() {
+        List<Kline> list = new ArrayList<>();
+        klineRepository.findAll().forEach(list::add);
+        return list;
     }
 
     // devops: 运维

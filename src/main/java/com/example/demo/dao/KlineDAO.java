@@ -8,5 +8,6 @@ import java.util.List;
 public interface KlineDAO {
     public void storeRawData(List<KlineRaw> list, String runName);
     public void storeTransData(List<Kline> list, String runName);
+    public List<Kline> getData();
 }
 

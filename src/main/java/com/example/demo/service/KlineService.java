@@ -45,4 +45,8 @@ public class KlineService {
         }
     }
 
+    public List<Kline> get() {
+        return klineDAO.getData();
+    }
+
 }

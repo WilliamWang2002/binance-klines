@@ -30,7 +30,7 @@ public class Controller {
 
     @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/loadKlineData")
-    public ResponseEntity<List<Kline>> loadKlineData(@RequestParam String symbol, @RequestParam String startingTime, @RequestParam String endingTime, @RequestParam String runName, @RequestParam String frequency) {
+    public ResponseEntity<Object> loadKlineData(@RequestParam String symbol, @RequestParam String startingTime, @RequestParam String endingTime, @RequestParam String runName, @RequestParam String frequency) {
         // Controller should be as clean as possible. Put logic into different services. Dao is about db
 
         // USE LOG instead of system out println. log4j library
@@ -39,10 +39,19 @@ public class Controller {
         Long endTime = Long.parseLong(endingTime);
         List<Kline> k = klineService.load(symbol, startTime, endTime, runName, frequency);
 //        LoadResult result =  new LoadResult(k, null);
+        return new ResponseEntity<>("OK", HttpStatus.OK);
+    }
+
+    @CrossOrigin(origins = "http://localhost:3000")
+    @GetMapping("/getKlineData")
+    public ResponseEntity<List<Kline>> getKlineData() {
+        List<Kline> k = klineService.get();
         return new ResponseEntity<>(k, HttpStatus.OK);
     }
 
+
     // TODO add load (store redis first) | get (retrive from redis) methods
+
 //    @CrossOrigin(origins = "http://localhost:3000")
 //    @GetMapping("/getKlineData")
 //    public ResponseEntity<String> getKlineData(@RequestParam String symbol, @RequestParam String startingTime, @RequestParam String endingTime, @RequestParam String runName, @RequestParam String frequency) {
